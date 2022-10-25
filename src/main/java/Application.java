@@ -1,5 +1,67 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class Application {
     public static void main(String[] args) {
-        System.out.println("Starting the application...");
+        Integer[] num = {1, 4, 4, 4, 5, 3};
+        Application application = new Application();
+        System.out.println(application.migratoryBirds(Arrays.asList(num)));
+    }
+
+    public int migratoryBirds(List<Integer> arr) {
+        Set<Integer> ids = new HashSet();
+        for(int i=0; i< arr.size(); i++){
+            ids.add(arr.get(i));
+        }
+        Map<Integer, Integer> idMap = new HashMap<>();
+        for(Integer id: ids){
+            int count =0;
+            for(int i=0; i< arr.size(); i++){
+                if(id == arr.get(i)){
+                    count++;
+                }
+            }
+            idMap.put(id, count);
+        }
+
+        List<Integer> counts = new ArrayList();
+
+        for(Map.Entry<Integer,Integer> map: idMap.entrySet()){
+            counts.add(map.getValue());
+        }
+
+        for(int i=0; i<counts.size()-1; i++){
+            for(int j=0; j<counts.size()-1 -i; j++){
+                if(counts.get(j)<counts.get(j+1)){
+                    int temp = counts.get(j);
+                    counts.set(j,counts.get(j+1));
+                    counts.set(j+1,temp);
+                }
+            }
+        }
+
+        int maxCount = counts.get(0);
+        List<Integer> unsortedIds = new ArrayList();
+        for(Map.Entry<Integer,Integer> map: idMap.entrySet()){
+            if(map.getValue() == maxCount){
+                unsortedIds.add(map.getKey());
+            }
+        }
+
+        for(int i=0; i<unsortedIds.size()-1; i++){
+            for(int j=0; j<unsortedIds.size()-1 -i; j++){
+                if(unsortedIds.get(j)>unsortedIds.get(j+1)){
+                    int temp = unsortedIds.get(j);
+                    unsortedIds.set(j,unsortedIds.get(j+1));
+                    unsortedIds.set(j+1,temp);
+                }
+            }
+        }
+        return unsortedIds.get(0);
     }
 }
