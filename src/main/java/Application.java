@@ -1,5 +1,6 @@
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -8,9 +9,6 @@ import java.util.Set;
 
 public class Application {
     public static void main(String[] args) {
-        Integer[] num = {1, 4, 4, 4, 5, 3};
-        Application application = new Application();
-        System.out.println(application.migratoryBirds(Arrays.asList(num)));
     }
 
     public int migratoryBirds(List<Integer> arr) {
